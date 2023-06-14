@@ -6,12 +6,18 @@ import time
 USER = sys.argv[1]
 API_KEY = sys.argv[2]
 SCRIPT = sys.argv[3]
+SOFTNAME = sys.argv[4]
 if len(sys.argv) >= 6:
     ARGS1 = sys.argv[4]
     ARGS2 = sys.argv[5]
 else:
     ARGS1 = None
     ARGS2 = None
+if ARGS1 is not None and ARGS2 is not None:
+    args = [f"{ARGS1} {ARGS2}"]
+else:
+    args = []
+
 API = "https://api.nzrbhome.tech"
 HEADERS = {
     "Content-Type": "application/json",
@@ -30,7 +36,6 @@ def run_script(agent_id, payload):
     else:
         print(response)
         print(f"Failed to execute script on agent '{agent_id}'.")
-
 
 def get_agents():
     agents = requests.get(f"{API}/agents/", headers=HEADERS)
@@ -55,7 +60,7 @@ def run_script_names():
         "custom_field": None,
         "save_all_output": True,
         "script": SCRIPT,
-        "args": [f"{ARGS1} {ARGS2}"],
+        "args": args,
         "shell": "script.shell",
         "env_vars": [],
         "run_as_user": False,
@@ -64,6 +69,7 @@ def run_script_names():
     }
     for agent_id in agent_ids:
         run_script(agent_id, payload)
+
 
 def get_software(agent_id):
     software = requests.get(f"{API}/software/{agent_id}", headers=HEADERS)
@@ -77,7 +83,7 @@ def print_software_names():
         software_list = software_data.get("software", [])
         for software in software_list:
             software_name = software.get("name")
-            if software_name == "Node.js":
+            if software_name == SOFTNAME :
                 software_found = True
                 break
         if software_found:
@@ -86,13 +92,11 @@ def print_software_names():
     if software_found:
         print("Yes")
     if not software_found:
-        raise ValueError("Software does not exist.")   
-     
+            raise ValueError("Software does not exist.") 
 def get_agent_notes(agent_id):
     notes_url = f"{API}/agents/{agent_id}/notes/"
     response = requests.get(notes_url, headers=HEADERS)
     return response.json()
-    
 
 def print_agent_notes_names():
     agent_ids = get_agents()
@@ -102,25 +106,14 @@ def print_agent_notes_names():
         if notes_data:
             last_note = notes_data[-1].get("note")  # Retrieve the last note from the list
             if last_note:
+                print("============================================NOTES===========================================")
                 print(last_note)
             if not last_note:
-                raise ValueError("No notes found for the agent(s).")
+                raise ValueError("No notes found for the agent(s).")            
 
-def delete_agent_notes():
-    agent_ids = get_agents()
-    notes_url = f"{API}/agents/{agent_ids}/notes/"
-    response = requests.get(notes_url, headers=HEADERS)
-    notes_data = json.loads(response.content)
-    if notes_data:
-        note_ids = [note["pk"] for note in notes_data]  # Get the IDs of all notes
-        for note_id in note_ids:
-            delete_url = f"{API}/agents/{agent_ids}/notes/{note_id}/"
-            delete_response = requests.delete(delete_url, headers=HEADERS)
-            if delete_response.status_code == 204:
-                print(f"Deleted note with ID {note_id} for agent {agent_ids}.")
-            else:
-                print(f"Failed to delete note with ID {note_id} for agent {agent_ids}.")
-    else:
-        raise ValueError("No notes found for the agent.")            
-         
-delete_agent_notes()
+run_script_names()
+print_agent_notes_names()
+
+time.sleep(2)
+
+print_software_names()

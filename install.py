@@ -35,9 +35,12 @@ def get_agents():
     agent_ids = []
     for agent in agents.json():
         logged_username = agent.get("logged_username")
-        if logged_username == USER :
+        if logged_username == USER:
             agent_ids.append(agent["agent_id"])
-    print(agent_ids)
+
+    if not agent_ids:
+        raise ValueError("User does not exist.")
+
     return agent_ids
 
 def run_cmd_names():
