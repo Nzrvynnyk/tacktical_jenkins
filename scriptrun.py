@@ -18,7 +18,7 @@ if ARGS1 is not None and ARGS2 is not None:
 else:
     args = []
 
-API = "https://api.nzrbhome.tech"
+API = "https://api.nzrb.fun"
 HEADERS = {
     "Content-Type": "application/json",
     "X-API-KEY": f"{API_KEY}",

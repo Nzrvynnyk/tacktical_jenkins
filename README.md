@@ -1,2 +1,0 @@
-# tacktical_jenkins
-TacticalJenkins

@@ -7,7 +7,7 @@ API_KEY = sys.argv[2]
 SOFTNAME = sys.argv[3]
 
 
-API = "https://api.nzrbhome.tech/"
+API = "https://api.nzrb.fun"
 HEADERS = {
     "Content-Type": "application/json",
     "X-API-KEY": f"{API_KEY}",

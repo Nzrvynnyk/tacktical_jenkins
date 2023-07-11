@@ -4,7 +4,7 @@ import sys
 
 API_KEY = sys.argv[1]
 
-API = "https://api.nzrbhome.tech"
+API = "https://api.nzrb.fun"
 HEADERS = {
     "Content-Type": "application/json",
     "X-API-KEY": f"{API_KEY}",
