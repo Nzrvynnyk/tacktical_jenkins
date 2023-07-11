@@ -25,7 +25,7 @@ def run_cmd(agent_id, cmd):
     headers = {'Content-Type': 'application/json', "X-API-KEY": f"{API_KEY}"}
     response = requests.post(endpoint, headers=headers, json=payload)
     if response.status_code == 200:
-        print(f"CMD command '{cmd}' executed successfully on agent '{agent_id}'.")
+        print(f"CMD command test '{cmd}' executed successfully on agent '{agent_id}'.")
     else:
         print(response)
         print(f"Failed to execute CMD command '{cmd}' on agent '{agent_id}'.")
