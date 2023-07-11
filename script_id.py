@@ -12,6 +12,7 @@ HEADERS = {
 def get_scripts():
     scripts_url = f"{API}/scripts/"
     response = requests.get(scripts_url, headers=HEADERS)
+    print(response)
     return response.json()
 
 def print_script_names():
