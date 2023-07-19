@@ -22,7 +22,7 @@ def print_users_name():
         for users in users_data:
             users_name = users.get("logged_username")
             users_host = users.get("hostname")
-            print(f"List of Users: {users_name}, and Hostname: {users_host}")
+            print(f"User: {users_name}, Hostname: {users_host}")
     else: 
         raise ValueError("No found")
 
