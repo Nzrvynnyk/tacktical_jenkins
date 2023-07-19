@@ -6,7 +6,7 @@ import time
 USER = sys.argv[1]
 API_KEY = sys.argv[2]
 SCRIPT = sys.argv[3]
-SOFTNAME = sys.argv[4]
+# SOFTNAME = sys.argv[4]
 if len(sys.argv) >= 6:
     ARGS1 = sys.argv[4]
     ARGS2 = sys.argv[5]
@@ -75,24 +75,24 @@ def get_software(agent_id):
     software = requests.get(f"{API}/software/{agent_id}", headers=HEADERS)
     return software.json()
 
-def print_software_names():
-    agent_ids = get_agents()
-    software_found = False  # Flag variable to track if software "vim" is found
-    for agent_id in agent_ids:
-        software_data = get_software(agent_id)
-        software_list = software_data.get("software", [])
-        for software in software_list:
-            software_name = software.get("name")
-            if software_name == SOFTNAME :
-                software_found = True
-                break
-        if software_found:
-            break
+# def print_software_names():
+#     agent_ids = get_agents()
+#     software_found = False  # Flag variable to track if software "vim" is found
+#     for agent_id in agent_ids:
+#         software_data = get_software(agent_id)
+#         software_list = software_data.get("software", [])
+#         for software in software_list:
+#             software_name = software.get("name")
+#             if software_name == SOFTNAME :
+#                 software_found = True
+#                 break
+#         if software_found:
+#             break
     
-    if software_found:
-        print("Yes")
-    if not software_found:
-            raise ValueError("Software does not exist.") 
+#     if software_found:
+#         print("Yes")
+#     if not software_found:
+#             raise ValueError("Software does not exist.") 
 def get_agent_notes(agent_id):
     notes_url = f"{API}/agents/{agent_id}/notes/"
     response = requests.get(notes_url, headers=HEADERS)
