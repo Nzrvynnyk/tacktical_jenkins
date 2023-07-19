@@ -6,7 +6,7 @@ import time
 USER = sys.argv[1]
 API_KEY = sys.argv[2]
 SCRIPT = sys.argv[3]
-if len(sys.argv) >= 6:
+if len(sys.argv) >= 5:
     ARGS1 = sys.argv[4]
     ARGS2 = sys.argv[5]
 else:
