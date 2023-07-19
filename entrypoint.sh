@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-git fetch origin master
+git pull origin master
 git reset --hard origin/master
 
 if [ $# -gt 0 ]; then
